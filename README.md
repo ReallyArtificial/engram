@@ -9,6 +9,26 @@ Engram is two things:
 
 Both use the same SQLite-backed engine. No external database required.
 
+## 60-Second Quickstart
+
+The fastest way to get started with engram as an MCP server in Claude Code:
+
+```bash
+npx engram-init
+```
+
+This interactive setup wizard will:
+1. Detect your environment (OpenAI/Anthropic keys, Ollama, Claude Code CLI)
+2. Let you choose your AI provider (OpenAI, Anthropic, or fully-local Ollama)
+3. Test the connection
+4. Register engram with Claude Code automatically
+
+Then start a new Claude Code session and try:
+- *"Remember that I prefer TypeScript with strict mode"*
+- *"What do you remember about my preferences?"*
+
+**Manual MCP setup** (if you prefer): See the [MCP Server](#mcp-server) section below.
+
 ## How It Works
 
 ```
