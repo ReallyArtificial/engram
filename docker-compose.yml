@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  engram-mcp:
+    build: .
+    container_name: engram-mcp
+    volumes:
+      # Persistent storage for engram databases
+      - engram-data:/app/data
+    environment:
+      # OpenAI API key (required for embeddings)
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      # Optional: Custom data directory
+      - ENGRAM_DATA_DIR=/app/data
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    networks:
+      - engram-net
+
+  # Example: Run engram-init for one-time setup
+  engram-init:
+    build: .
+    container_name: engram-init
+    command: ["node", "dist/bin/engram-init.js"]
+    volumes:
+      - engram-data:/app/data
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ENGRAM_DATA_DIR=/app/data
+    stdin_open: true
+    tty: true
+    profiles:
+      - tools
+    networks:
+      - engram-net
+
+volumes:
+  engram-data:
+    driver: local
+
+networks:
+  engram-net:
+    driver: bridge
