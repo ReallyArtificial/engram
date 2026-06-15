@@ -1,0 +1,22 @@
+services:
+  engram-mcp:
+    build: .
+    image: engram:latest
+    container_name: engram-mcp
+    restart: unless-stopped
+    volumes:
+      # Mount local directory for persistent memory storage
+      - ./data:/app/data
+    environment:
+      # Set OPENAI_API_KEY for embedding generation
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+    stdin_open: true
+    tty: true
+
+  # Example: Run tests in container
+  test:
+    build: .
+    image: engram:latest
+    command: npm test
+    volumes:
+      - ./tests:/app/tests
